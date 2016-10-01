@@ -3,77 +3,34 @@ app.currentModule = (function($){
         init: function(obj, callback) {
             console.log("Инициализируем модуль для добавления записи");
             obj = obj || new Object(null);
+            
+            // я пока еще не понял зачем на callback
+            /*
             callback = callback || function() {
                 return false;
             }
+            callback();*/
+        
+            var category = Backendless.Persistence.of('category').find();  /*global Backendless*/
+            var type     = Backendless.Persistence.of('type').find();
             
-            callback();
+            function setHtml(data, container){
+                
+                var option = '',
+                    itemData = data.data;
+
+                for(var i = 0; itemData.length > i; i++){
+                    option += '<option value="' + itemData[i].objectId + '">' + itemData[i].name + '</option>';
+                }
+                
+                $(obj).find(container).html(option);
+            }
+            
+            setHtml(category, '#categoryId');
+            setHtml(type, '#type');
+            
+            /*дальше повесить обработчик события отправки формы + валидация + отправка в базу и ответ*/
+            
         }
     }
 })(jQuery);
-
-
-/*
-(function(){
-    //console.log('yep');
-    
-    $.ajax({
-        type: 'GET',
-        url: 'https://api.backendless.com/v1/data/category',
-        headers: {"application-id" : "14469D9E-0DF1-09B9-FF27-2739263FE500", "secret-key" : "2EA4DAF8-A0D4-6A10-FF50-19F884C04800"},
-        dataType: 'json',
-        beforeSend: function() {},
-        success: function(data){
-            var option,
-                itemData = data.data;
-            
-            //console.log(data.data);
-            
-            for(var i = 0; itemData.length > i; i++){
-                //console.log(data.data[i]);
-                
-                option += '<option value="' + itemData[i].objectId + '">' + itemData[i].name + '</option>';
-            }
-            
-            $('#categoryId').html(option);
-          
-        },
-        error: function (xhr, ajaxOptions, thrownError) {
-          alert(xhr.status);
-          alert(thrownError);
-        },
-        complete: function() {}
-        
-    });
-    
-    $.ajax({
-        type: 'GET',
-        url: 'https://api.backendless.com/v1/data/type',
-        headers: {"application-id" : "14469D9E-0DF1-09B9-FF27-2739263FE500", "secret-key" : "2EA4DAF8-A0D4-6A10-FF50-19F884C04800"},
-        dataType: 'json',
-        beforeSend: function() {},
-        success: function(data){
-            var option,
-                itemData = data.data;
-            
-            //console.log(data.data);
-            
-            for(var i = 0; itemData.length > i; i++){
-                //console.log(data.data[i]);
-                
-                option += '<option value="' + itemData[i].objectId + '">' + itemData[i].name + '</option>';
-            }
-            
-            $('#type').html(option);
-          
-        },
-        error: function (xhr, ajaxOptions, thrownError) {
-          alert(xhr.status);
-          alert(thrownError);
-        },
-        complete: function() {}
-        
-    });
-    
-    
-})()*/

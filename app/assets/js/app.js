@@ -72,7 +72,7 @@ var app = (function($, cont) {
 
             this.state = {} // текущее состояние
             $window.on('hashchange', changeState);
-            window.location.hash = window.location.hash || "#index";
+            window.location.hash ? $window.trigger('hashchange') : window.location.hash = '#index';
             if (!initialized) {
                 $window.trigger('hashchange');
             }

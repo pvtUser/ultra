@@ -17,6 +17,7 @@
   ],
   "dependencies": {
     "jquery": "^3.1.0",
-    "bootstrap": "v4.0.0-alpha.4"
+    "bootstrap": "v4.0.0-alpha.4",
+    "backendless": "^3.1.16"
   }
 }

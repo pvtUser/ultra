@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags always come first -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Ultra</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <script src="https://api.backendless.com/sdk/js/latest/backendless.js"></script>
+  <!-- jQuery first, then Tether, then Bootstrap JS. -->
+</head>
+
+<body>
+  <nav class="navbar navbar-fixed-top navbar-dark bg-inverse">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12">
+          <ul class="nav navbar-nav" id="pages">
+            <li class="nav-item"><a class="nav-link" href="#index"         data-src="assets/pages/index.html" data-js="assets/js/index.js">Все объявления</a></li>
+            <li class="nav-item"><a class="nav-link" href="#add"          data-src="assets/pages/add.html" data-js="assets/js/add.js">Добавить объявление</a></li>
+            <li class="nav-item"><a class="nav-link" href="#login"        data-src="assets/pages/login.html" data-js="assets/js/login.js">login</a></li>
+            <li class="nav-item"><a class="nav-link" href="#registration" data-src="assets/pages/registration.html" data-js="assets/js/registration.js">Registration</a></li>
+            <li class="nav-item"><a class="nav-link" href="#logout"       data-src="assets/pages/logout.html" data-js="assets/js/logout.js">logout</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="clearfix m-y-3"></div>
+
+  <div class="container m-y-3">
+
+    <div class="row">
+      <div class="col-xs-12">
+        <div id="preloader">
+          <span class="tcon-loader--spinner360" aria-label="loading">
+                <span class="tcon-visuallyhidden">loading</span>
+          </span>
+        </div>
+
+        <section id="app" data-pages="#pages"></section>
+
+      </div>
+    </div>
+  </div>
+  <!-- /.container -->
+  <script src="assets/js/jquery.js"></script>
+  <script src="assets/js/tether.js"></script>
+  <script src="assets/js/bootstrap.min.js"></script>
+  <script src="assets/js/app.js"></script>
+  <script>/*
+  (function($){
+    
+    $(document).ready(function() {
+      // вешаем обработчик события клик, на наши кнопки
+      $('.nav-link').on('click', myFunc);
+      // получаем данные если есть hash;
+      window.location.hash ? $(window.location.hash).trigger('click') : false;
+    });
+
+    var myFunc = function() {
+      // удалем класс у всех элементов списка
+      $('.nav-item')
+        .removeClass('active');
+      // делаем активным пункт меню, по которому кликнули
+      $(this)
+        .parent().addClass('active');
+      getContent($(this).attr('id')); // получаем данные
+    }
+
+
+    var getContent = function(src) {
+      
+      var uriHtml = 'https://preview.c9users.io/samakhvalau/spa/data/html/' + src + '.html',
+          uriJs   = 'https://preview.c9users.io/samakhvalau/spa/data/js/' + src + '.js';
+
+      $.get({
+        url: uriHtml,
+        dataType: 'html',
+        beforeSend: function() {
+          $('#preloader').show();
+        },
+        success: function(dataHtml) {
+          if (dataHtml) {
+            
+            $.getScript({
+              url: uriJs,
+              success: function(){
+                $('#result').html(dataHtml);
+              }
+            });
+            
+          }
+        },
+        error: function(xhr, ajaxOptions, thrownError) {
+          alert(xhr.status);
+          alert(thrownError);
+        },
+        complete: function() {
+          $('#preloader').hide();
+        }
+      })
+    }
+  })(jQuery)*/
+  </script>
+</body>
+
+</html>

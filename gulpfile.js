@@ -5,8 +5,8 @@ var rigger = require('gulp-rigger');
 //var autoprefixer = require('gulp-autoprefixer');
 
 var config = {
-    src: {main:"app/", js:"assets/js/", css:"assets/css/"},
-    dest: {main:"dist/", js:"assets/js/", css:"assets/css/"}
+    src: {main:"app/", js:"assets/js/", css:"assets/css/", pages:"assets/pages/"},
+    dest: {main:"dist/", js:"assets/js/", css:"assets/css/", pages:"assets/pages/"}
     
 }
 
@@ -55,6 +55,10 @@ gulp.task('rigger', function(){
     gulp.src(config.src.main+'*.html')
         .pipe(rigger())
         .pipe(gulp.dest(config.dest.main));
+        
+    gulp.src(config.src.main+config.src.pages+'/**/*.html')
+        .pipe(rigger())
+        .pipe(gulp.dest(config.dest.main+config.dest.pages));
 });
 
 // задача browser-sync - запуск сервера для отображения изменений в файлах в режиме онлайн (не надо рефрешить)

@@ -1,3 +1,25 @@
+var APPLICATION_ID = '14469D9E-0DF1-09B9-FF27-2739263FE500',
+    SECRET_KEY = 'CE9AA93B-E443-C9C8-FF9B-348911D65300',
+    VERSION = 'v1';
+    
+Backendless.initApp(APPLICATION_ID, SECRET_KEY, VERSION);
+/*
+var user = new Backendless.User();
+user.email = "james.bond@mi6.co.uk";
+user.password = "iAmWatchingU";
+ 
+try
+{
+  Backendless.UserService.register( user );
+}
+catch( err )
+{
+  console.log( "error message - " + err.message );
+  console.log( "error code - " + err.statusCode );
+}*/
+
+
+
 var app = (function($, cont) {
 
     var initialized = false; // флаг, инициализировано наше приложение или нет

@@ -7,8 +7,6 @@ app.currentModule = (function($){
                 return false;
             }
             
-            $('.dropdown-toggle').dropdown()
-            
             callback();
         }
     }

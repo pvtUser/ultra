@@ -31,6 +31,10 @@ app.currentModule = (function($){
             
             /*дальше повесить обработчик события отправки формы + валидация + отправка в базу и ответ*/
             
+            $(obj).find('#button-add').on('click', function(){
+                console.log($(this));
+            })
+            
         }
     }
 })(jQuery);

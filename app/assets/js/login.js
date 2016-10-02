@@ -7,20 +7,37 @@ app.currentModule = (function($) {
                 return false;
             };
 
-            $(document).ready(function() {
-                $('#login_button').on('click', function() {
-                    var user;
-                    var username = $('#login_email').val();
-                    var password = $('#login_pass').val();
+            $(obj).find('#login_button').on('click', function() {
+                console.log($(obj).find('#login_button'));
+                var user;
+                var username = $('#login_email').val();
+                var password = $('#login_pass').val();
 
+                try {
+                    user = Backendless.UserService.login(username, password);
+                    $('#output').prepend('<div class="alert alert-success alert-dismissible fade in" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button><strong>Вы успешно залогинились!</strong></div>');
+                    $('a#login').replaceWith('<a class="nav-link" id="logout" href="#logout">logout</a>');
+                    document.forms['login_form'].reset();
+                }
+                catch (err) {
+                    console.log("error message - " + err.message);
+                    console.log("error code - " + err.statusCode);
+                    $('#output').prepend('<div class="alert alert-success alert-dismissible fade in" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button><strong>Проверьте правильность введенных данных!</strong></div>');
+                }
+
+                $('#logout').on('click', function() {
                     try {
-                        user = Backendless.UserService.login(username, password);
-                        $('#output').prepend('<div class="alert alert-success alert-dismissible fade in" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button><strong>Вы успешно залогинились!</strong></div>');
+                        // now log out:
+                        Backendless.UserService.logout();
+                        console.log("user has been logged out");
+//                        $('#output').prepend('<div class="alert alert-success alert-dismissible fade in" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button><strong>Вы успешно вылогинились!</strong></div>');
+                        $('a#logout').replaceWith('<a class="nav-link" id="login" href="#login">login</a>');
                     }
-                    catch (err) {
+                    catch (err) // see more on error handling
+                    {
+                        // logout failed, to get the error code, call err.statusCode
                         console.log("error message - " + err.message);
                         console.log("error code - " + err.statusCode);
-                        $('#output').prepend('<div class="alert alert-success alert-dismissible fade in" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button><strong>Проверьте правильность введенных данных!</strong></div>');
                     }
                 });
             });

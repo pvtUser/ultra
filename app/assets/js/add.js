@@ -1,22 +1,23 @@
+/*global Backendless*/
+/*global jQuery*/
+/*global app*/
 app.currentModule = (function($){
     return {
         init: function(obj, callback) {
             console.log("Инициализируем модуль для добавления записи");
             obj = obj || new Object(null);
             
-            // я пока еще не понял зачем на callback
+            // я пока еще не понял зачем нам callback
             /*
             callback = callback || function() {
                 return false;
             }
             callback();*/
-        
-            var category = Backendless.Persistence.of('category').find();  /*global Backendless*/
-            var type     = Backendless.Persistence.of('type').find();
             
-            function setHtml(data, container){
+            var setHtml = function(table, container){
                 
-                var option = '',
+                var data = Backendless.Persistence.of(table).find(),
+                    option = '',
                     itemData = data.data;
 
                 for(var i = 0; itemData.length > i; i++){
@@ -24,17 +25,73 @@ app.currentModule = (function($){
                 }
                 
                 $(obj).find(container).html(option);
-            }
+            };
             
-            setHtml(category, '#categoryId');
-            setHtml(type, '#type');
+            setHtml('category', '#categoryId');
+            setHtml('type', '#type');
             
             /*дальше повесить обработчик события отправки формы + валидация + отправка в базу и ответ*/
             
+            var Post = function(args){
+                args = args || {};
+                this.___class = 'poster';
+                this.categoryId = args.categoryId || "";
+                this.fullDescription = args.fullDescription || "";
+                //this.image = ;
+                //this.images = ;
+                this.price = args.price ? parseInt(args.price) : 0;
+                this.shortDescription = args.shortDescription || "";
+                this.special = args.special == "1" ? true : false;
+                this.title = args.title || "";
+                this.type = args.type || "";
+            };
+            
+            var Category = function(args){
+                args = args || {};
+                this.___class = 'category';
+                this.objectId = args.objectId || "";
+            };
+            
+            var Type = function(args){
+                args = args || {};
+                this.___class = 'type';
+                this.objectId = args.objectId || "";
+            };
+            
             $(obj).find('#button-add').on('click', function(){
-                console.log($(this));
-            })
+                
+                var _ = $(obj);
+                
+                var posterObject = new Post({
+                    
+                    categoryId : new Category({
+                        objectId : _.find("#categoryId").val()
+                    }),
+                    fullDescription : _.find("#fullDescription").val(),
+                    price : _.find('#price').val(),
+                    shortDescription : _.find('#shortDescription').val(),
+                    special : _.find('input[name="special"]:checked').val(),
+                    title : _.find('#title').val(),
+                    type : new Type({
+                        objectId : _.find('#type').val()
+                    })
+                });
+                
+                try{
+                    Backendless.Persistence.of('poster').save(posterObject);
+                    $('#output').prepend('<div class="alert alert-success alert-dismissible fade in" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button><strong>Вы успешно добавили объявление!</strong></div>');
+                    document.forms['add-news'].reset();
+                }catch(err){
+                    alert('Что-то не так!');
+                }
+                
+                
+                //var savedPoster = Backendless.Persistence.of('poster').save(posterObject);
+                //console.log(posterObject);
+                //console.log(savedPoster);
+            });
             
         }
-    }
+    };
 })(jQuery);
+ 

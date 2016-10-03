@@ -53,12 +53,14 @@ var app = (function($, cont) {
                 $.ajax({
                     url: pages[href].src,
                     method: "GET",
+                    async: false,
                     dataType: "html",
                     success: function(html) {
                         pages[href].html = $(html); // подумайте, почему так?
                         $.ajax({
                             url: pages[href].js,
                             method: "GET",
+                            async: false,
                             dataType: "script",
                             success: function(js) {
                                 pages[href].module = app.currentModule;

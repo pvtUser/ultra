@@ -13,9 +13,12 @@ app.currentModule = (function($) {
                 var user;
                 var username = $('#login_email').val();
                 var password = $('#login_pass').val();
+                var stayLoggedIn = true;
 
                 try {
-                    user = Backendless.UserService.login(username, password);
+                    user = Backendless.UserService.login(username, password, stayLoggedIn);
+                    var userObjectId = Backendless.LocalCache.get("current-user-id");
+                    console.log(userObjectId);
                     $('#output').prepend('<div class="alert alert-success alert-dismissible fade in" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button><strong>Вы успешно залогинились!</strong></div>');
                     $('a#login').replaceWith('<a class="nav-link" id="logout" href="#logout">Выйти</a>');
                     document.forms['login_form'].reset();

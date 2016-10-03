@@ -6,6 +6,7 @@ app.currentModule = (function($) {
             callback = callback || function() {
                 return false;
             };
+//            $(obj).find('#output').remove('.alert');
 
             $(obj).find('#login_button').on('click', function() {
                 console.log($(obj).find('#login_button'));

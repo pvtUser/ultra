@@ -13,6 +13,8 @@ app.currentModule = (function($) {
                     Backendless.UserService.logout();
                     console.log("user has been logged out");
                     $('a#logout').replaceWith('<a class="nav-link" id="login" href="#login">Войти</a>');
+                    $('#my_menu').css('display', 'none');
+                    $('#add_menu').css('display', 'none');
                 }
                 catch (err) // see more on error handling
                 {

@@ -6,7 +6,7 @@ app.currentModule = (function($) {
             callback = callback || function() {
                 return false;
             };
-//            $(obj).find('#output').remove('.alert');
+            //            $(obj).find('#output').remove('.alert');
 
             $(obj).find('#login_button').on('click', function() {
                 console.log($(obj).find('#login_button'));
@@ -23,6 +23,7 @@ app.currentModule = (function($) {
                     $('a#login').replaceWith('<a class="nav-link" id="logout" href="#logout">Выйти</a>');
                     document.forms['login_form'].reset();
                     $('#add_menu').css('display', '');
+                    $('#my_menu').css('display', '');
                     $('#registration_menu').css('display', 'none');
                 }
                 catch (err) {
@@ -36,9 +37,10 @@ app.currentModule = (function($) {
                         // now log out:
                         Backendless.UserService.logout();
                         console.log("user has been logged out");
-                        //                        $('#output').prepend('<div class="alert alert-success alert-dismissible fade in" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button><strong>Вы успешно вылогинились!</strong></div>');
+                        $('#output').prepend('<div class="alert alert-success alert-dismissible fade in" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button><strong>Вы успешно вылогинились!</strong></div>');
                         $('a#logout').replaceWith('<a class="nav-link" id="login" href="#login">Войти</a>');
                         $('#add_menu').css('display', 'none');
+                        $('#my_menu').css('display', 'none');
                         $('#registration_menu').css('display', '');
                     }
                     catch (err) // see more on error handling

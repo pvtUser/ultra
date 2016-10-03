@@ -1,4 +1,4 @@
-app.currentModule = (function($){
+app.currentModule = (function($) {
     return {
         init: function(obj, callback) {
             console.log("Инициализируем модуль для главной страницы");
@@ -7,6 +7,7 @@ app.currentModule = (function($){
             /*
             callback = callback || function() {
                 return false;
+<<<<<<< HEAD
             }
             callback();*/
             
@@ -40,6 +41,11 @@ app.currentModule = (function($){
             }
             
             getPosts();
+=======
+            };
+
+            callback();
+>>>>>>> 2867dbb5237202320e550196bb12307e9d15609c
         }
     }
 })(jQuery);

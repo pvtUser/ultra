@@ -14,6 +14,13 @@ gulp.task('mainfiles', function() {
     return gulp.src(mainBowerFiles())
     .pipe(gulp.dest(config.dest.main+config.dest.js))
 });
+
+gulp.task('copy', function () {
+  return gulp.src("bower_components/bootstrap/dist/**/*.*") // Выборка исходных файлов для обработки плагином
+    //.pipe(plugin()) // Вызов Gulp плагина для обработки файла
+    .pipe(gulp.dest('dist/assets/')) // Вывод результирующего файла в папку назначения (dest - пункт назначения)
+})
+
 /*
 gulp.task('autoprefixer', function () {
     return gulp.src(config.src.css + 'app.css')
@@ -79,7 +86,7 @@ gulp.task('reload',['rigger','mainfiles'],function(){
 
 // в случае изменения сущестующих или появления новых файлов - выполняем задачи js(вывод в консоль сообщения) и reload - перезапуск browser-sync 
 // аналогично по css и html
-gulp.task('watch', ['browser-sync', 'js', 'css', 'html', 'rigger','mainfiles'], function() {
+gulp.task('watch', ['browser-sync', 'js', 'css', 'html', 'rigger','mainfiles', 'copy'], function() {
     gulp.watch(config.src.main+config.src.js+'**/*.js', ['js', 'reload']);
     gulp.watch(config.src.main+config.src.css+'**/*.css', ['css', 'reload']);
     gulp.watch(config.src.main+'**/*.html', ['html', 'reload']);

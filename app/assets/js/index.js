@@ -7,7 +7,6 @@ app.currentModule = (function($) {
             /*
             callback = callback || function() {
                 return false;
-<<<<<<< HEAD
             }
             callback();*/
             
@@ -26,8 +25,6 @@ app.currentModule = (function($) {
                 $(obj).find('#all-news').html(resultHtml);
                 
                 
-                
-                
                 /*var search = window.location.search.substr(1),
 	            keys = {};
       
@@ -41,11 +38,7 @@ app.currentModule = (function($) {
             }
             
             getPosts();
-=======
-            };
 
-            callback();
->>>>>>> 2867dbb5237202320e550196bb12307e9d15609c
         }
     }
 })(jQuery);

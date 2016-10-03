@@ -22,7 +22,7 @@ app.currentModule = (function($) {
                     catch (err) {
                         console.log("error message - " + err.message);
                         console.log("error code - " + err.statusCode);
-                        $('#output').prepend('<div class="alert alert-success alert-dismissible fade in" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button><strong>Проверьте правильность введенных данных!</strong></div>');
+                        $('#output').prepend('<div class="alert alert-warning alert-dismissible fade in" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button><strong>Проверьте правильность введенных данных!</strong></div>');
                     }
 
                     $('#logout').on('click', function() {

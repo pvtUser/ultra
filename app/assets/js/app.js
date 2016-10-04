@@ -1,24 +1,9 @@
+/* global Backendless */
 var APPLICATION_ID = '14469D9E-0DF1-09B9-FF27-2739263FE500',
     SECRET_KEY = 'CE9AA93B-E443-C9C8-FF9B-348911D65300',
     VERSION = 'v1';
 
 Backendless.initApp(APPLICATION_ID, SECRET_KEY, VERSION);
-
-/*
-var user = new Backendless.User();
-user.email = "james.bond@mi6.co.uk";
-user.password = "iAmWatchingU";
- 
-try
-{
-  Backendless.UserService.register( user );
-}
-catch( err )
-{
-  console.log( "error message - " + err.message );
-  console.log( "error code - " + err.statusCode );
-}*/
-
 
 var app = (function($, cont) {
 
@@ -29,7 +14,7 @@ var app = (function($, cont) {
 
     var renderState = function() {
         cont.html(app.state.html);
-    }
+    };
 
     var changeState = function(e) {
         // записываем текущее состояние в state
@@ -38,7 +23,7 @@ var app = (function($, cont) {
         // подумайте, почему происходит ошибка и как от этого можно избавиться?
         app.state.module.init(app.state.html);
         renderState();
-    }
+    };
 
     return {
         init: function() {
@@ -71,7 +56,7 @@ var app = (function($, cont) {
 
                 //код для отрисовки меню залогину
                 var currentUser = Backendless.UserService.getCurrentUser();
-                console.log(currentUser)
+                //console.log(currentUser)
                 if (currentUser == null) {
                     $('#add_menu').css('display', 'none');
                     $('#my_menu').css('display', 'none');
@@ -93,8 +78,6 @@ var app = (function($, cont) {
 
             });
 
-            console.log(pages);
-
             this.state = {} // текущее состояние
             $window.on('hashchange', changeState);
             window.location.hash = window.location.hash || "#index";
@@ -106,6 +89,22 @@ var app = (function($, cont) {
 
         debug: function() {
             console.log(pages);
+        },
+        
+        getItemNews: function(objectId){
+            var itemNews = Backendless.Persistence.of('poster').findById($(objectId).data('objectid')),
+                //itemAutor = Backendless.UserService.of('User').find(),
+                innerContent = '';
+            
+            $('#myModal .modal-title').html(itemNews['title']);
+            
+            innerContent += '<p>' + itemNews['fullDescription'] + '</p>';
+            innerContent += '<p><small>Категория: ' + itemNews.categoryId['name'] + '</small></p>';
+            innerContent += '<p><small>Тип объявления: ' + itemNews.type['name'] + '</small></p>';
+            //innerContent += '<p><small>Разместил: ' + itemAutor['name'] + '</small></p>';
+            
+            $('#myModal .modal-body').html(innerContent);
+        
         }
 
     }

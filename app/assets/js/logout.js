@@ -3,9 +3,11 @@ app.currentModule = (function($) {
         init: function(obj, callback) {
             console.log("Инициализируем модуль для выхода");
             obj = obj || new Object(null);
+            /*
             callback = callback || function() {
                 return false;
             };
+            callback();*/
 
             $(obj).find('#logout').on('click', function() {
                 try {
@@ -24,7 +26,7 @@ app.currentModule = (function($) {
                 }
             });
 
-            callback();
+            
         }
     }
 })(jQuery);

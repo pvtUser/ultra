@@ -53,61 +53,22 @@
   <script defer src="assets/js/bootstrap.js"></script>
   <script defer src="assets/js/backendless.js"></script>
   <script defer src="assets/js/app.js"></script>
-  <script>/*
-  (function($){
-    
-    $(document).ready(function() {
-      // вешаем обработчик события клик, на наши кнопки
-      $('.nav-link').on('click', myFunc);
-      // получаем данные если есть hash;
-      window.location.hash ? $(window.location.hash).trigger('click') : false;
-    });
-
-    var myFunc = function() {
-      // удалем класс у всех элементов списка
-      $('.nav-item')
-        .removeClass('active');
-      // делаем активным пункт меню, по которому кликнули
-      $(this)
-        .parent().addClass('active');
-      getContent($(this).attr('id')); // получаем данные
-    }
+  
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content modal-lg">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title" id="myModalLabel"></h4>
+        </div>
+        <div class="modal-body"></div>
+      </div>
+    </div>
+  </div>
 
 
-    var getContent = function(src) {
-      
-      var uriHtml = 'https://preview.c9users.io/samakhvalau/spa/data/html/' + src + '.html',
-          uriJs   = 'https://preview.c9users.io/samakhvalau/spa/data/js/' + src + '.js';
-
-      $.get({
-        url: uriHtml,
-        dataType: 'html',
-        beforeSend: function() {
-          $('#preloader').show();
-        },
-        success: function(dataHtml) {
-          if (dataHtml) {
-            
-            $.getScript({
-              url: uriJs,
-              success: function(){
-                $('#result').html(dataHtml);
-              }
-            });
-            
-          }
-        },
-        error: function(xhr, ajaxOptions, thrownError) {
-          alert(xhr.status);
-          alert(thrownError);
-        },
-        complete: function() {
-          $('#preloader').hide();
-        }
-      })
-    }
-  })(jQuery)*/
-  </script>
 </body>
 
 </html>

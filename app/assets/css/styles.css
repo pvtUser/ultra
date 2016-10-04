@@ -89,3 +89,11 @@
       position: static;
       width: auto;
     }
+    
+.card{
+  text-align: center;
+}
+
+.card img{
+  max-width: 100%;
+}

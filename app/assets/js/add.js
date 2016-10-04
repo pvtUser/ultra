@@ -37,7 +37,7 @@ app.currentModule = (function($){
                 this.___class = 'poster';
                 this.categoryId = args.categoryId || "";
                 this.fullDescription = args.fullDescription || "";
-                //this.image = ;
+                this.image = args.image || "";
                 //this.images = ;
                 this.price = args.price ? parseInt(args.price) : 0;
                 this.shortDescription = args.shortDescription || "";
@@ -68,6 +68,7 @@ app.currentModule = (function($){
                         objectId : _.find("#categoryId").val()
                     }),
                     fullDescription : _.find("#fullDescription").val(),
+                    image : _.find('#hiddenfile').val(),
                     price : _.find('#price').val(),
                     shortDescription : _.find('#shortDescription').val(),
                     special : _.find('input[name="special"]:checked').val(),
@@ -85,12 +86,31 @@ app.currentModule = (function($){
                     alert('Что-то не так!');
                 }
                 
-                
-                //var savedPoster = Backendless.Persistence.of('poster').save(posterObject);
-                //console.log(posterObject);
-                //console.log(savedPoster);
             });
             
+            $(obj).find('#file').on('change', function(evt){
+               var file = evt.target.file; // FileList object
+               console.log(file);
+            });
+            
+            
+            $(obj).find('#uploadFile').on('click', function(){
+                
+               var callback = {};
+             
+               callback.success = function(result){
+                   alert('Файл успешно загружен!');
+                   //alert( "File successfully uploaded. Path to download: " + result.fileURL );
+                   
+                   $(obj).find('input[name=hiddenfile]').val(result.fileURL);
+               }
+              
+               callback.fault = function(result){
+                   alert( "error - " + result.message );
+               }
+              
+               Backendless.Files.upload( file, 'app', true, callback);
+            });
         }
     };
 })(jQuery);

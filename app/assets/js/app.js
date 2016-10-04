@@ -1,7 +1,7 @@
 var APPLICATION_ID = '14469D9E-0DF1-09B9-FF27-2739263FE500',
     SECRET_KEY = 'CE9AA93B-E443-C9C8-FF9B-348911D65300',
     VERSION = 'v1';
-    
+
 Backendless.initApp(APPLICATION_ID, SECRET_KEY, VERSION);
 
 /*
@@ -68,8 +68,29 @@ var app = (function($, cont) {
                         });
                     }
                 });
+
+                //код для отрисовки меню залогину
+                var currentUser = Backendless.UserService.getCurrentUser();
+                if (currentUser == null) {
+                    $('#add_menu').css('display', 'none');
+                    $('#my_menu').css('display', 'none');
+                }
+                else {
+                    $('#add_menu').css('display', '');
+                    $('#my_menu').css('display', '');
+                    $('#registration_menu').css('display', 'none');
+                    $('a#login').replaceWith('<a class="nav-link" id="logout" href="#logout">Выйти</a>');
+                    $('#logout').on('click', function() {
+                        $('a#logout').replaceWith('<a class="nav-link" id="login" href="#login">Войти</a>');
+                        $('#add_menu').css('display', 'none');
+                        $('#my_menu').css('display', 'none');
+                        $('#registration_menu').css('display', '');
+                    });
+                }
+                //конец кода    
+
             });
-            
+
             console.log(pages);
 
             this.state = {} // текущее состояние
@@ -84,6 +105,7 @@ var app = (function($, cont) {
         debug: function() {
             console.log(pages);
         }
+
     }
 
 })(jQuery, $('#app'));

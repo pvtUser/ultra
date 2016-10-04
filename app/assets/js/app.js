@@ -71,6 +71,7 @@ var app = (function($, cont) {
 
                 //код для отрисовки меню залогину
                 var currentUser = Backendless.UserService.getCurrentUser();
+                console.log(currentUser)
                 if (currentUser == null) {
                     $('#add_menu').css('display', 'none');
                     $('#my_menu').css('display', 'none');
@@ -81,6 +82,7 @@ var app = (function($, cont) {
                     $('#registration_menu').css('display', 'none');
                     $('a#login').replaceWith('<a class="nav-link" id="logout" href="#logout">Выйти</a>');
                     $('#logout').on('click', function() {
+                        Backendless.UserService.logout();
                         $('a#logout').replaceWith('<a class="nav-link" id="login" href="#login">Войти</a>');
                         $('#add_menu').css('display', 'none');
                         $('#my_menu').css('display', 'none');

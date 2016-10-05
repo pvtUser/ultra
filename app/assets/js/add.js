@@ -14,7 +14,7 @@ app.currentModule = (function($){
             }
             callback();*/
             
-            var setHtml = function(table, container){
+            var setOptionSelect = function(table, container){
                 
                 var data = Backendless.Persistence.of(table).find(),
                     option = '',
@@ -27,10 +27,10 @@ app.currentModule = (function($){
                 $(obj).find(container).html(option);
             };
             
-            setHtml('category', '#categoryId');
-            setHtml('type', '#type');
+            setOptionSelect('category', '#categoryId');
+            setOptionSelect('type', '#type');
             
-            /*дальше повесить обработчик события отправки формы + валидация + отправка в базу и ответ*/
+            /*дальше повесить обработчик события отправки формы + отправка в базу и ответ*/
             
             var Post = function(args){
                 args = args || {};
@@ -57,6 +57,30 @@ app.currentModule = (function($){
                 this.___class = 'type';
                 this.objectId = args.objectId || "";
             };
+            
+            $(obj).find('#file').on('change', function(evt){
+               var file = evt.target.file; // FileList object
+               console.log(file);
+            });
+            
+            
+            $(obj).find('#uploadFile').on('click', function(){
+                
+               var callback = {};
+             
+               callback.success = function(result){
+                   alert('Файл успешно загружен!');
+                   //alert( "File successfully uploaded. Path to download: " + result.fileURL );
+                   
+                   $(obj).find('input[name=hiddenfile]').val(result.fileURL);
+               }
+              
+               callback.fault = function(result){
+                   alert( "error - " + result.message );
+               }
+              
+               Backendless.Files.upload( file, 'app', true, callback);
+            });
             
             $(obj).find('#button-add').on('click', function(){
                 
@@ -88,29 +112,6 @@ app.currentModule = (function($){
                 
             });
             
-            $(obj).find('#file').on('change', function(evt){
-               var file = evt.target.file; // FileList object
-               console.log(file);
-            });
-            
-            
-            $(obj).find('#uploadFile').on('click', function(){
-                
-               var callback = {};
-             
-               callback.success = function(result){
-                   alert('Файл успешно загружен!');
-                   //alert( "File successfully uploaded. Path to download: " + result.fileURL );
-                   
-                   $(obj).find('input[name=hiddenfile]').val(result.fileURL);
-               }
-              
-               callback.fault = function(result){
-                   alert( "error - " + result.message );
-               }
-              
-               Backendless.Files.upload( file, 'app', true, callback);
-            });
         }
     };
 })(jQuery);

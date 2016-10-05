@@ -3,10 +3,11 @@ app.currentModule = (function($) {
         init: function(obj, callback) {
             console.log("Инициализируем модуль для входа");
             obj = obj || new Object(null);
+            /*
             callback = callback || function() {
                 return false;
             };
-            //            $(obj).find('#output').remove('.alert');
+            callback();*/
 
             $(obj).find('#login_button').on('click', function() {
                 console.log($(obj).find('#login_button'));
@@ -51,8 +52,6 @@ app.currentModule = (function($) {
                     }
                 });
             });
-
-            callback();
         }
     };
 })(jQuery);

@@ -24,13 +24,13 @@ app.currentModule = (function($) {
           
                     search.split('&').forEach(function(item) {
                     	item = item.split('=');
+                    	
+                    	//генерируем condition (строку поиска) выглядит #index?categoryId='<objeсtId категории>'
                     	keys_string += item[0] + '.' + ['objectId'] + "=" + "\'" + item[1] + "\'";
-                    	//keys[item[0]] = item[1];
                     });
                     
                     console.log(keys_string);
                     
-                    //posts = Backendless.Persistence.of('poster').find({condition: "ownerId=" + "\'" + currentUser['ownerId'] + "\'"});
                     posts = Backendless.Persistence.of('poster').find({condition: keys_string});
                     $('#myModal').modal('hide');
                     

@@ -1,3 +1,5 @@
+/* global Backendless */
+/* global jquery */
 app.currentModule = (function($) {
     return {
         init: function(obj, callback) {
@@ -13,11 +15,30 @@ app.currentModule = (function($) {
             var getPosts = function() {
 
                 var resultHtml = '',
-                /*
-                if(window.location.search.length > 1)
-                    posts = Backendless.Persistence.of('poster').find({condition: "ownerId=" + "\'" + currentUser['ownerId'] + "\'"})
-                else*/
-                    posts = Backendless.Persistence.of('poster').find()
+                    posts,
+                    search = window.location.hash.split('?')[1];
+                
+                if(search){
+                
+                    var keys_string = '';
+          
+                    search.split('&').forEach(function(item) {
+                    	item = item.split('=');
+                    	keys_string += item[0] + '.' + ['objectId'] + "=" + "\'" + item[1] + "\'";
+                    	//keys[item[0]] = item[1];
+                    });
+                    
+                    console.log(keys_string);
+                    
+                    //posts = Backendless.Persistence.of('poster').find({condition: "ownerId=" + "\'" + currentUser['ownerId'] + "\'"});
+                    posts = Backendless.Persistence.of('poster').find({condition: keys_string});
+                    $('#myModal').modal('hide');
+                    
+                }else{
+                    posts = Backendless.Persistence.of('poster').find();
+                    
+                    console.log(posts);
+                }
 
                 for (var i = 0; i < posts.data.length; i++) {
                     resultHtml += '<div class="col-md-4"><div class="card">';
@@ -32,15 +53,9 @@ app.currentModule = (function($) {
 
                 $(obj).find('#all-news').html(resultHtml);
 
-                /*var search = window.location.search.substr(1),
-	            keys = {};
-      
-                search.split('&').forEach(function(item) {
-                	item = item.split('=');
-                	keys[item[0]] = item[1];
-                });
-      
-                console.log(Object.keys(keys));*/
+
+
+                
 
             };
 

@@ -18,7 +18,12 @@ var app = (function($, cont) {
 
     var changeState = function(e) {
         // записываем текущее состояние в state
-        app.state = pages[window.location.hash];
+        
+        var hash = window.location.hash.split('?')[0];
+        
+        //console.log(hash);
+        
+        app.state = pages[hash];
         // вот тут может выдаваться ошибка "Cannot read property 'init' of undefined". 
         // подумайте, почему происходит ошибка и как от этого можно избавиться?
         app.state.module.init(app.state.html);
@@ -99,11 +104,13 @@ var app = (function($, cont) {
             $('#myModal .modal-title').html(itemNews['title']);
             
             innerContent += '<p>' + itemNews['fullDescription'] + '</p>';
-            innerContent += '<p><small>Категория: ' + itemNews.categoryId['name'] + '</small></p>';
-            innerContent += '<p><small>Тип объявления: ' + itemNews.type['name'] + '</small></p>';
+            innerContent += '<p><small><a href="#index?categoryId=' + itemNews.categoryId['objectId'] + '">Категория: ' + itemNews.categoryId['name'] + '</a></small></p>';
+            innerContent += '<p><small><a href="#index?type=' + itemNews.type['objectId'] + '">Тип объявления: ' + itemNews.type['name'] + '</a></small></p>';
             //innerContent += '<p><small>Разместил: ' + itemAutor['name'] + '</small></p>';
             
             $('#myModal .modal-body').html(innerContent);
+            
+            console.log(itemNews);
         
         }
 

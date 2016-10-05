@@ -1,7 +1,7 @@
 npm install
-npm -g install gulp
-npm -g install bower
 bower install
+
+Для изменения настроек приложения, зайдите в файл app.js и поменяйте секретный ключ (SECRET_KEY) и ключ приложения (APPLICATION_ID) на свои.
 
 # ultra
 # 1. удалить ssh ключ у прошлого репозитория и добавить в этот

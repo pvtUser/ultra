@@ -1,13 +1,8 @@
 app.currentModule = (function($) {
     return {
-        init: function(obj, callback) {
+        init: function(obj) {
             console.log("Инициализируем модуль для регистрации");
             obj = obj || new Object(null);
-            /*
-            callback = callback || function() {
-                return false;
-            }
-            callback();*/
 
             $(obj).find('#registration_button').on('click', function() {
                 var user = new Backendless.User();
@@ -17,6 +12,7 @@ app.currentModule = (function($) {
 
                 try {
                     Backendless.UserService.register(user);
+                    Backendless.UserService.login(user.email, user.password, true);
                     $('#output').prepend('<div class="alert alert-success alert-dismissible fade in" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button><strong>Вы успешно зарегистрировались!</strong></div>');
                     $('a#login').replaceWith('<a class="nav-link" id="logout" href="#logout">Выйти</a>');
                     $('#add_menu').css('display', '');

@@ -1,4 +1,5 @@
 /* global Backendless */
+/* global jQuery */
 var APPLICATION_ID = '14469D9E-0DF1-09B9-FF27-2739263FE500',
     SECRET_KEY = 'CE9AA93B-E443-C9C8-FF9B-348911D65300',
     VERSION = 'v1';
@@ -18,12 +19,11 @@ var app = (function($, cont) {
 
     var changeState = function(e) {
         // записываем текущее состояние в state
-        
         var hash = window.location.hash.split('?')[0];
         
         //console.log(hash);
-        
         app.state = pages[hash];
+        
         // вот тут может выдаваться ошибка "Cannot read property 'init' of undefined". 
         // подумайте, почему происходит ошибка и как от этого можно избавиться?
         app.state.module.init(app.state.html);
@@ -90,6 +90,7 @@ var app = (function($, cont) {
                 $window.trigger('hashchange');
             }
             initialized = true;
+            $('[data-toggle="tooltip"]').tooltip();
         },
 
         debug: function() {
@@ -98,22 +99,21 @@ var app = (function($, cont) {
         
         getItemNews: function(objectId){
             var itemNews = Backendless.Persistence.of('poster').findById($(objectId).data('objectid')),
-                //itemAutor = Backendless.UserService.of('User').find(),
                 innerContent = '';
             
-            $('#myModal .modal-title').html(itemNews['title']);
-            
             innerContent += '<p>' + itemNews['fullDescription'] + '</p>';
-            innerContent += '<p><small><a href="#index?categoryId=' + itemNews.categoryId['objectId'] + '">Категория: ' + itemNews.categoryId['name'] + '</a></small></p>';
-            innerContent += '<p><small><a href="#index?type=' + itemNews.type['objectId'] + '">Тип объявления: ' + itemNews.type['name'] + '</a></small></p>';
-            //innerContent += '<p><small>Разместил: ' + itemAutor['name'] + '</small></p>';
+            innerContent += '<p><small>Категория: <a href="#index?categoryId=' + itemNews.categoryId['objectId'] + '">' + itemNews.categoryId['name'] + '</a></small></p>';
+            innerContent += '<p><small>Тип объявления: <a href="#index?type=' + itemNews.type['objectId'] + '">' + itemNews.type['name'] + '</a></small></p>';
             
+            $('#myModal .modal-title').html(itemNews['title']);
             $('#myModal .modal-body').html(innerContent);
-            
-            console.log(itemNews);
         
+        },
+        
+        deleteItemNews: function(objectId){
+            Backendless.Persistence.of('poster').remove($(objectId).data('objectid'));
+            window.location.reload();
         }
-
     }
 
 })(jQuery, $('#app'));

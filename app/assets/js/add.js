@@ -3,16 +3,9 @@
 /*global app*/
 app.currentModule = (function($){
     return {
-        init: function(obj, callback) {
+        init: function(obj) {
             console.log("Инициализируем модуль для добавления записи");
             obj = obj || new Object(null);
-            
-            // я пока еще не понял зачем нам callback
-            /*
-            callback = callback || function() {
-                return false;
-            }
-            callback();*/
             
             var setOptionSelect = function(table, container){
                 
